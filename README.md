@@ -61,13 +61,12 @@ front-end/
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/Luxxdev/mvp-front-end.git
-   cd mvptemp/front-end
    ```
 
 2. **Build and run the Docker container**:
    ```bash
    docker build -t media-archive-frontend .
-   docker run -d -p 80:80 media-archive-frontend
+   docker run -d -p 80:80 --name media-archive-frontend media-archive-frontend
    ```
 
 3. **Access the application**:
