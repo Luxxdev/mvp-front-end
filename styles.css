@@ -1,0 +1,668 @@
+:root {
+    --primary-color: #E3F2FB;
+    --secondary-color: #152129;
+    --button-delete: #E37949;
+    --button-confirm: #83B4D1;
+    --button-cancel: #9CC6DF;
+    --darker: #0e161b;
+    --background: #ffffff;
+    --lighter: #d6d6d6;
+    --secondary-alternative: #2c4454;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Verdana, sans-serif;
+    line-height: 1.6;
+    background-color: var(--background);
+}
+
+body:has(.modal.active) {
+    overflow: hidden;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+}
+
+button:hover {
+    scale: 1.1;
+    filter: brightness(0.8);
+}
+
+.banner {
+    background: var(--secondary-color);
+    color: var(--background);
+    display: flex;
+    height: 20vh;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.banner h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.container {
+    max-width: 100vw;
+    margin: 0vh auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-section {
+    display: flex;
+    gap: 1vh;
+    margin: 2vh 0;
+    max-width: 80%;
+    align-items: center;
+}
+
+.search-box {
+    background: var(--lighter);
+    flex: 1;
+    padding: .5rem;
+    border: 1px solid var(--darker);
+    border-radius: 5px;
+    font-size: 1rem;
+    color: var(--darker);
+    font-family: Verdana, Tahoma, sans-serif;
+}
+
+.search-btn,
+.add-btn {
+    padding: .5rem;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.search-btn {
+    background: var(--secondary-color);
+    color: var(--lighter);
+}
+
+.add-btn {
+    background: var(--secondary-color);
+    color: var(--lighter);
+}
+
+#current-search {
+    margin-bottom: 1rem;
+    font-style: italic;
+    color: var(--darker);
+}
+
+.elements-grid {
+    display: grid;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, auto));
+    grid-auto-rows: 1fr;
+    gap: 30px;
+    justify-content: center;
+    overflow-y: auto;
+    justify-items: center;
+}
+
+.no-elements {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--darker);
+    font-style: italic;
+    margin-top: 10vh;
+}
+
+.element-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--primary-color);
+    position: relative;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: var(--darker);
+    font-style: italic;
+    border: 1px var(--secondary-color) solid;
+    width: 30rem;
+}
+
+.deleteElement {
+    background: none;
+    position: absolute;
+    top: 0px;
+    right: 5px;
+    color: var(--darker);
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    font-size: large;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-style: normal;
+    z-index: 1;
+}
+
+.deleteElement:hover {
+    color: var(--button-delete);
+}
+
+.element-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+.element-info:hover {
+    cursor: pointer;
+    border: 3px var(--secondary-color) solid;
+    border-radius: 10px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: 4px var(--secondary-color) solid;
+}
+
+.element-info:hover .element-api-data {
+    padding: 1.1rem;
+}
+
+.element-info:hover .element-cover {
+    border-bottom: 10px var(--secondary-color) solid;
+    border-left: 10px var(--secondary-color) solid;
+}
+
+.element-name {
+    display: flex;
+    justify-content: center;
+    line-height: normal;
+    align-items: center;
+    color: var(--darker);
+    font-weight: bold;
+    text-align: center;
+    font-style: normal;
+    box-sizing: border-box;
+    font-size: 2rem;
+    line-height: 1.2;
+    width: 100%;
+    word-break: break-word;
+    hyphens: auto;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    position: relative;
+    height: 9rem;
+}
+
+.element-name::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.element-cover {
+    height: 20rem;
+    width: 15rem;
+    object-fit: fill;
+    border-left: 5px solid var(--secondary-color);
+    border-bottom: 5px solid var(--secondary-color);
+    border-top: 2px solid var(--secondary-color);
+    border-right: 2px solid var(--secondary-color);
+}
+
+.element-status {
+    margin-bottom: 1rem;
+}
+
+.user-values {
+    position: relative;
+    margin: 1rem 0rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+    color: var(--darker);
+    font-style: normal;
+    color: var(--secondary-alternative);
+    border-bottom: 1px var(--secondary-alternative) solid;
+    border-top: 1px var(--secondary-alternative) solid;
+    padding: 1rem 0rem;
+    width: 50%;
+}
+
+.user-values div {
+    padding: 0rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.user-values .element-status {
+    justify-content: center;
+    font-weight: bold;
+}
+
+.user-values .left {
+    text-align: left;
+    font-weight: bold;
+}
+
+.user-values .right {
+    text-align: right;
+    font-style: italic;
+}
+
+.comment-section {
+    margin: 2rem 0rem;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    font-weight: bold;
+    color: var(--darker);
+    text-align: center;
+}
+
+.add-comment-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 25px;
+    color: var(--lighter);
+    background: var(--secondary-color);
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+}
+
+.add-comment-section {
+    width: 100%;
+    margin: 0 auto 20px auto;
+    text-align: center;
+}
+
+.add-comment-section textarea {
+    width: 90%;
+    margin-top: 1rem;
+    min-height: 100px;
+    padding: 1rem;
+    border-radius: 4px;
+    resize: none;
+}
+
+.toggle-comment-button {
+    width: 100%;
+    padding: 1rem;
+    margin: 0rem 5rem;
+    margin-top: 2rem;
+    background: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.comment-container {
+    max-height: 300px;
+    overflow: auto;
+    padding: 2rem 0.5rem;
+    border-top: 1px solid var(--darker);
+}
+
+.single-comment {
+    background-color: var(--background);
+    padding: 0.2rem;
+    margin: 0rem 1rem;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 200px;
+    margin-bottom: 0.5rem;
+    border-radius: 2px;
+    border: 1px solid var(--secondary-color);
+    font-family: monospace;
+    color: var(--darker);
+    cursor: pointer;
+}
+
+.single-comment:hover {
+    scale: 1.05;
+}
+
+.comment-content {
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.comment-edit-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--background);
+    border-radius: 3px;
+    resize: none;
+    min-height: 100px;
+}
+
+.commentBtn {
+    padding: 0.3rem 0.6rem;
+    margin-right: 0.3rem;
+    margin-top: 0.3rem;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.submitBtn {
+    background-color: var(--button-confirm);
+    color: var(--darker);
+}
+
+.cancel-btn {
+    background-color: var(--button-cancel);
+    color: var(--darker);
+}
+
+.delete-btn {
+    background-color: var(--button-delete);
+    color: var(--darker);
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.modal.active {
+    display: flex;
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active.API {
+    justify-content: space-around;
+}
+
+.modal-content {
+    background: var(--primary-color);
+    padding: 1rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 95%;
+    border: 2px solid var(--secondary-color);
+    color: var(--darker);
+    margin: 2rem;
+}
+
+.modal-content h2 {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: .5rem;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--darker);
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.checkbox-label input {
+    width: auto;
+}
+
+#userValues {
+    padding: 0 5rem;
+}
+
+#mediaSelection {
+    padding: 2rem 4rem;
+}
+
+#selectedMedia {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.selected-media-remove-btn {
+    background: none;
+    position: absolute;
+    left: 3px;
+    color: var(--darker);
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    font-size: large;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-style: normal;
+    z-index: 10;
+}
+
+.selected-media-remove-btn:hover {
+    color: var(--button-delete);
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.modal-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.modal-btn.submitBtn {
+    background-color: var(--button-confirm);
+    color: var(--darker);
+}
+
+.modal-btn.cancelBtn {
+    background-color: var(--button-cancel);
+    color: var(--darker);
+}
+
+.modal.active.API .modal-content {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 2rem;
+    margin: 0;
+    margin-top: 1rem;
+}
+
+.modal.active.API #mediaSelection {
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    margin-bottom: .5rem;
+    padding: 0rem;
+}
+
+.modal.active.API #mediaSelection h2 {
+    display: none;
+}
+
+.modal.active.API #mediaSelection .form-group {
+    margin-bottom: 0rem;
+}
+
+.modal.active.API .external-info-box {
+    width: 500px;
+    height: 500px;
+}
+
+.modal.active.API .external-info-box:hover {
+    cursor: pointer;
+    scale: 1.01;
+    border-color: var(--secondary-color);
+}
+
+.api-content {
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, auto));
+    gap: 30px 1px;
+    overflow-y: auto;
+    margin: 1rem 5rem;
+    padding: 2rem;
+    border-radius: 10px;
+    color: var(--darker);
+    border: 2px solid var(--secondary-color);
+    background: var(--primary-color);
+    text-align: center;
+}
+
+.element-api {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.element-api-data {
+    display: flex;
+    flex-direction: row;
+    max-height: 20rem;
+}
+
+.external-info-box {
+    width: fit-content;
+    height: fit-content;
+    padding: .5rem;
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    justify-self: center;
+    background-color: var(--background);
+    border: 3px solid var(--lighter);
+    border-radius: 4px;
+}
+
+.external-info-box img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: flex;
+}
+
+.external-info-title {
+    display: flex;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: var(--darker);
+    overflow: auto;
+    padding-top: 1rem;
+}
+
+.external-info-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: space-between;
+    width: 100%;
+    gap: 1rem;
+    padding-top: 3rem;
+    border-top: 1px var(--secondary-color) solid;
+}
+
+.external-info-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.external-info-text p {
+    background-color: var(--background);
+    overflow-wrap: break-word;
+    overflow: auto;
+    text-overflow: ellipsis;
+    text-align: justify;
+    max-height: 20vh;
+    border-radius: 2px;
+    padding: .5rem;
+    border: 1px solid var(--secondary-color);
+    font-family: monospace;
+    color: var(--darker);
+}
+
+.element-api-info {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+    background: var(--secondary-color);
+    font-size: 0.9rem;
+    height: auto;
+    border-right: 2px solid var(--secondary-color);
+    overflow-y: auto;
+}
+
+.element-api-info p {
+    margin: 0.3rem 0;
+    background-color: var(--background);
+    overflow-wrap: break-word;
+    overflow: auto;
+    text-overflow: ellipsis;
+    text-align: justify;
+    min-height: 3rem;
+    font-family: monospace;
+    color: var(--darker);
+    overflow-y: auto;
+    max-height: 100%;
+    padding: .3rem .5rem;
+}
+
+.hidden {
+    display: none !important;
+}

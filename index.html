@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="fav.jpg" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <title>My Media Archive</title>
+</head>
+
+<body>
+    <div class="banner">
+        <div class="banner-content">
+            <h1>My Media Archive</h1>
+            <p>List all the media you're currently following, whether it's books, movies, mangas, or anything else! </p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="search-section">
+            <input type="text" class="search-box" id="searchBox" placeholder="Search elements by name..." onblur="">
+            <button class="search-btn" id="searchBtn">Search</button>
+            <button class="add-btn" id="addBtn">Add something!</button>
+        </div>
+
+        <div id="current-search"></div>
+
+        <div class="elements-grid" id="elementsGrid"> </div>
+    </div>
+
+    <dialog class="modal" id="MediaModal">
+        <div class="modal-content">
+            <form id="addMediaForm">
+                <div class="form-group hidden" id="selectedMedia">
+                </div>
+                <div class="form-group" id="mediaSelection">
+                    <h2>Find your series!</h2>
+
+                    <div class="form-group">
+                        <label for="mediaCategory">Category:</label>
+                        <select id="mediaCategory" required>
+                            <option value="Movie">Movie</option>
+                            <option value="Book">Book</option>
+                            <option value="Manga">Manga</option>
+                            <option value="Anime">Anime</option>
+                            <option value="Series">Series</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="mediaName">Title:</label>
+                        <input type="text" id="mediaName" required placeholder="Enter the title">
+                    </div>
+                </div>
+                <div class="form-group hidden" id="userValues">
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            Completed
+                            <input type="checkbox" id="mediaCompleted">
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="mediaProgress">Progress:</label>
+                        <input type="text" id="mediaProgress" required placeholder="Enter your current progress"
+                            maxlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="mediaScore">Score:</label>
+                        <input type="number" id="mediaScore" max="10" min="0" placeholder="Enter your score">
+                    </div>
+                    <div class="form-group">
+                        <label>Date Started:</label>
+                        <input type="date" id="mediaDataStarted">
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="modal-btn submitBtn" id="submitBtn">Add</button>
+                        <button type="button" class="modal-btn cancelBtn" id="cancelBtn">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <!-- API -->
+        <div class="api-content hidden" id="apiContent">
+            <!-- <div class="external-info-box">
+                <img id="previewCover" src="" alt="Cover" style="max-width: 150px;" />
+                <div>
+                    <p><strong>Total Episodes/Chapters:</strong> <span style="max-height: 150px;"
+                            id="previewTotal"></span>
+                    </p>
+                    <p><strong>Average Score:</strong> <span style="max-height: 150px;" id="previewScore"></span></p>
+                    <p><strong>Synopsis:</strong> <span style="size: 10px;" id="previewSynopsis"></span></p>
+                </div>
+            </div> -->
+        </div>
+
+
+
+
+    </dialog>
+    <script src="script.js"></script>
+</body>
+
+</html>
