@@ -316,7 +316,6 @@ function createAPIInfoBox(el, index) {
   const label = updateProgressLabel(mediaCategory.value);
 
   if (el.category) {
-    console.log("label", el.category);
     const label = updateProgressLabel(el.category);
   }
   const media = Object.assign(document.createElement('div'), {
@@ -349,8 +348,6 @@ function searchMedia(previousValue = false) {
     return;
   }
   searchTerm = previousValue ? searchTerm : searchBox.value.toLowerCase().trim();
-  console.log(previousValue);
-  console.log(searchTerm);
   if (searchTerm === '') {
     filteredElements = elements;
     currentSearchText.textContent = '';
@@ -367,7 +364,6 @@ function searchMedia(previousValue = false) {
 function updateElementDisplay(item) {
   const elementToUpdate = elements.find(el => el.id === item.id);
   if (elementToUpdate) {
-    console.log(elements);
     elementToUpdate.name = item.name;
     elementToUpdate.category = item.category;
     elementToUpdate.progress = item.progress;
@@ -383,7 +379,6 @@ function updateElementDisplay(item) {
   }
   const elementCard = document.getElementById(`element-${item.id}`);
   if (elementCard) {
-    console.log("Element card found", elementCard);
     elementCard.replaceWith(createCard(item));
   }
 }
@@ -403,7 +398,6 @@ function editComment(e, comment) {
   };
   editingComment = { commentId: comment.id, text: comment.text, clickHandler: clickHandler };
 
-  console.log("adding listener", comment.id);
   document.addEventListener('click', editingComment.clickHandler, true);
 
   document.getElementById(`comment-content-${comment.id}`).style.display = 'none';
@@ -451,11 +445,9 @@ function toggleAddComment(commentDiv, e) {
         toggleAddComment(commentDiv, event);
       }
     };
-    console.log("adding listener to", commentDiv.id);
     document.addEventListener('click', commentDiv.clickHandler, true);
   }
   else if (commentDiv.clickHandler) {
-    console.log("removing listener from", commentDiv.id);
     document.removeEventListener('click', commentDiv.clickHandler, true);
     commentDiv.clickHandler = null;
   }
@@ -463,15 +455,12 @@ function toggleAddComment(commentDiv, e) {
 
 // EXTERNAL API DISPLAY INTEGRATION
 function showAPIInfo(info) {
-  console.log(info);
   toggleAPIContent(false);
-
-  if (mediaCategory.value === (CATEGORIES.MOVIE || CATEGORIES.SERIES)) {
+  if ([CATEGORIES.MOVIE, CATEGORIES.SERIES].includes(mediaCategory.value)) {
     apiContent.textContent = 'API info not available for Movies or Series yet.';
     toggleAPIContent(true);
     return;
   }
-
   if (info.length > 0) {
     info.forEach((result, index) => {
       apiContent.append(createAPIInfoBox(result, index));
@@ -575,13 +564,12 @@ function deleteElementDisplay(item) {
   if (elements.length === 0) {
     elementsGrid.innerHTML = '<div class="no-elements">Nothing here yet, add something!</div>';
   }
-  if (searchTerm) { console.log("fez"), searchMedia(true); }
+  if (searchTerm) { searchMedia(true); }
 }
 
 function insertComment(comment) {
   const element = elements.find(el => el.id === comment.media_id);
   element.comments.push(comment);
-  console.log("element comments", element.comments);
   updateElementDisplay(element);
 }
 
@@ -629,7 +617,6 @@ function addMedia(e) {
     external_score: selectedMediaData?.external_score || null,
     synopsis: selectedMediaData?.synopsis || null,
   };
-  console.log("new element", newElement);
 
   const validation = validateMediaInput(newElement);
   if (!validation.valid) {
@@ -802,7 +789,6 @@ async function deleteMedia(item) {
 
     let data = await response.json();
     deleteElementDisplay(data.media);
-    console.log("deleted", data);
   }
   catch (error) {
     handleAPIError(error, 'delete media');
@@ -858,7 +844,6 @@ async function deleteComment(id) {
       method: 'delete',
     });
 
-    console.log(response);
     if (!response.ok) {
       throw new Error('Error:' + response.statusText);
     }
@@ -885,7 +870,6 @@ async function searchExternalAPI(item) {
     }
 
     let data = await response.json();
-    console.log("API data", data);
     showAPIInfo(data.results);
   }
   catch (error) {
