@@ -1,4 +1,4 @@
-# Media Archive - Front-End
+# Media Fetch - Front-End
 
 A responsive web application for tracking and managing your media consumption (books, movies, manga, anime, series) with progress tracking, comments functionality, and external API integration for fetching media information.
 
@@ -240,5 +240,6 @@ This project is for educational purposes.
 
 - [Jikan API Documentation](https://docs.api.jikan.moe/)
 - [Open Library API Documentation](https://openlibrary.org/developers/api)
+
 
 
